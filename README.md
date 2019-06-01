@@ -9,6 +9,15 @@ Very simple HTTP server for serving static files with ability for gzip compressi
 
 ## Usage
 
+```console
+# gziphttp -h
+Usage of gziphttp:
+      --listen string      Port/IP to listen on (default ":3000")
+      --log-level string   Log level (debug, info, warn, error, fatal) (default "info")
+  -d, --serve-dir string   Directory to serve files from (default ".")
+      --version            Prints current version and exits
+```
+
 Here is an example usage inside a Docker container containing (quite large) compiled JavaScript files:
 
 ```dockerfile
