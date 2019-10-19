@@ -41,6 +41,11 @@ func init() {
 }
 
 func main() {
-	http.Handle("/", httphelper.GzipHandler(http.FileServer(http.Dir(cfg.ServeDir))))
-	log.WithError(http.ListenAndServe(cfg.Listen, nil)).Error("HTTP server ended")
+	http.Handle("/", http.FileServer(http.Dir(cfg.ServeDir)))
+
+	var handler http.Handler = http.DefaultServeMux
+	handler = httphelper.GzipHandler(handler)
+	handler = httphelper.NewHTTPLogHandler(handler)
+
+	log.WithError(http.ListenAndServe(cfg.Listen, handler)).Error("HTTP server ended")
 }
