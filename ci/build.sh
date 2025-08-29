@@ -7,6 +7,11 @@ osarch=(
   linux/amd64
   linux/arm
   linux/arm64
+  openbsd/amd64
+  openbsd/arm
+  plan9/amd64
+  plan9/arm
+  solaris/amd64
   windows/amd64
 )
 
