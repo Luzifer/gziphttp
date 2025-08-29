@@ -15,14 +15,14 @@ jobs:
         shell: bash
 
     container:
-      image: ghcr.io/luzifer-docker/action-env:master
+      image: ghcr.io/luzifer-docker/action-env:master@sha256:ee343beaeca313672a7ff3135acddffaaa9e048ff73ab7f01844e264e689a5fc
       env:
         CGO_ENABLED: 0
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/gziphttp/gziphttp
@@ -39,7 +39,7 @@ jobs:
         run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
 
       - name: Release
-        uses: ncipollo/release-action@v1.18.0
+        uses: ncipollo/release-action@bcfe5470707e8832e12347755757cec0eb3c22af # v1.18.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           artifacts: '.build/*'
