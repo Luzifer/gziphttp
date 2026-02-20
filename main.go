@@ -7,7 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	httphelper "github.com/Luzifer/go_helpers/v2/http"
+	httphelper "github.com/Luzifer/go_helpers/http"
 	"github.com/Luzifer/rconfig/v2"
 )
 
