@@ -2,7 +2,7 @@ module github.com/Luzifer/gziphttp
 
 go 1.25.7
 
-toolchain go1.26.1
+toolchain go1.26.2
 
 require (
 	github.com/Luzifer/go_helpers/http v0.12.3
