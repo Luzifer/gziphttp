@@ -1,14 +1,15 @@
+// gzip capable very simple HTTP server
 package main
 
 import (
 	"fmt"
 	"net/http"
 	"os"
-
-	log "github.com/sirupsen/logrus"
+	"time"
 
 	httphelper "github.com/Luzifer/go_helpers/http"
 	"github.com/Luzifer/rconfig/v2"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -22,30 +23,46 @@ var (
 	version = "dev"
 )
 
-func init() {
+func initApp() (err error) {
 	rconfig.AutoEnv(true)
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
-		log.Fatalf("Unable to parse commandline options: %s", err)
+		return fmt.Errorf("parsing cli options: %w", err)
 	}
 
-	if cfg.VersionAndExit {
-		fmt.Printf("gziphttp %s\n", version)
-		os.Exit(0)
+	l, err := logrus.ParseLevel(cfg.LogLevel)
+	if err != nil {
+		return fmt.Errorf("parsing log-level: %w", err)
 	}
+	logrus.SetLevel(l)
 
-	if l, err := log.ParseLevel(cfg.LogLevel); err != nil {
-		log.WithError(err).Fatal("Unable to parse log level")
-	} else {
-		log.SetLevel(l)
-	}
+	return nil
 }
 
 func main() {
+	var err error
+	if err = initApp(); err != nil {
+		logrus.WithError(err).Fatal("initializing app")
+	}
+
+	if cfg.VersionAndExit {
+		fmt.Printf("gziphttp %s\n", version) //nolint:forbidigo // fine for version print
+		os.Exit(0)
+	}
+
 	http.Handle("/", http.FileServer(http.Dir(cfg.ServeDir)))
 
 	var handler http.Handler = http.DefaultServeMux
 	handler = httphelper.GzipHandler(handler)
 	handler = httphelper.NewHTTPLogHandler(handler)
 
-	log.WithError(http.ListenAndServe(cfg.Listen, handler)).Error("HTTP server ended")
+	server := &http.Server{
+		Addr:              cfg.Listen,
+		Handler:           handler,
+		ReadHeaderTimeout: time.Second,
+	}
+
+	logrus.WithField("addr", cfg.Listen).Info("gziphttp started")
+	if err = server.ListenAndServe(); err != nil {
+		logrus.WithError(err).Fatal("running HTTP server")
+	}
 }
