@@ -1,3 +1,8 @@
+# 0.1.4 / 2026-05-06
+
+  * chore: modernize code, update deps
+  * fix(deps): update module github.com/luzifer/go_helpers/http to v0.12.3
+
 # 0.1.3 / 2026-02-20
 
   * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.1
