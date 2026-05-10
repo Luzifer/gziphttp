@@ -1,0 +1,39 @@
+name: test-and-build
+
+on:
+  push: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  test-and-build:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: ghcr.io/luzifer-docker/action-env:master@sha256:51eb9bedbd23acf7f2ba458df10c3c4391afb0dee4174e032f45ac319a1377b7
+      env:
+        CGO_ENABLED: 0
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/gziphttp/gziphttp
+
+      - name: 'Lint and test code'
+        run: |
+          go test -cover -v ./...
+          golangci-lint run ./...
+
+      - name: Local Build
+        run: |
+          go build \
+            -ldflags "-s -w" \
+            -mod=readonly \
+            -trimpath
