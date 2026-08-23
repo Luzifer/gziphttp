@@ -1,3 +1,10 @@
+# 0.1.5 / 2026-08-23
+
+  * chore: add Docker publishing
+  * fix(deps): update module github.com/luzifer/go_helpers/http to v0.12.5 (#25)
+  * fix(deps): update module github.com/sirupsen/logrus to v1.10.1 (#35)
+  * chore(sec): update transitive deps for vuln fix
+
 # 0.1.4 / 2026-05-06
 
   * chore: modernize code, update deps
