@@ -5,7 +5,7 @@ go 1.25.7
 toolchain go1.27.1
 
 require (
-	github.com/Luzifer/go_helpers/http v0.12.5
+	github.com/Luzifer/go_helpers/http v0.12.10
 	github.com/Luzifer/rconfig/v2 v2.6.2
 	github.com/sirupsen/logrus v1.10.2
 )
