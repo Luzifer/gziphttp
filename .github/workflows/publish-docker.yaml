@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Publish Docker image
-        uses: Luzifer/actions/docker-publish@ec81eb02ca63a118624e0c4799ded471223d089c # develop
+        uses: Luzifer/actions/docker-publish@477b5365d3a6b728808bbd4e75debdfed00b5746 # develop
         with:
           image_name: ghcr.io/luzifer/gziphttp
           registry_pass: ${{ secrets.GITHUB_TOKEN }}
