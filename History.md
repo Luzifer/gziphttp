@@ -1,3 +1,11 @@
+# 0.1.6 / 2026-11-25
+
+  * fix(deps): update module github.com/luzifer/go_helpers/http to v0.12.12 (#45)
+  * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.3 (#46)
+  * fix(deps): update module github.com/sirupsen/logrus to v1.10.2 (#37)
+  * chore(deps): update golang docker tag to v1.27.4 (#47)
+  * chore(deps): update go toolchain directive to v1.27.4 [security] (#48)
+
 # 0.1.5 / 2026-08-23
 
   * chore: add Docker publishing
